@@ -1,0 +1,16 @@
+##calculate rpkm##
+calrpkm<-function(x,y){x*10^9/sum(x)/y} #x is the column of read counts, y is the length,sum(x) is total counts
+
+
+##parametric avova and pair wise test##
+for (i in 1:22)
+{
+  formula <- paste(colnames(df4test)[i], " ~ type", sep="")
+  
+  p <- summary(res.aov<-aov(as.formula(formula), data=df4test))[[1]][["Pr(>F)"]][1]
+  
+  p.pair<-TukeyHSD(res.aov)
+  print(unlist(strsplit(paste(paste(colnames(df4test)[i],p, sep=":"),paste(p.pair$type[,4],collapse=":"),sep=":",collapse =NULL),":")))
+  #print(p.pair$type[,4])
+}
+

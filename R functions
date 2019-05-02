@@ -1,0 +1,12 @@
+##function to read in files##
+
+read<-function(input,header){
+  temp<-read.delim(input,header = header,stringsAsFactors = FALSE)
+  return(temp)
+}
+
+##function to write file##
+writein<-function(input,colname,rowname){
+  write.table(input,paste0(deparse(substitute(input)),".txt"),quote=FALSE,col.names = colname,row.names = rowname,sep="\t")
+}
+

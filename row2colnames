@@ -1,0 +1,5 @@
+#the 492 row becomes column names#
+#unlist that row and transform to characters#
+colnames(df.rpkm.sub.long) <- as.character(unlist(df.rpkm.sub.long[492,]))
+#remove that row#
+df.rpkm.sub.long <- df.rpkm.sub.long[-492, ]

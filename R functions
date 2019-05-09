@@ -1,7 +1,7 @@
 ##function to read in files##
-
+##check.names=FALSE can avoid name change when read in data##
 read<-function(input,header){
-  temp<-read.delim(input,header = header,stringsAsFactors = FALSE)
+  temp<-read.delim(input,header = header,stringsAsFactors = FALSE,check.names = FALSE)
   return(temp)
 }
 
@@ -10,3 +10,13 @@ writein<-function(input,colname,rowname){
   write.table(input,paste0(deparse(substitute(input)),".txt"),quote=FALSE,col.names = colname,row.names = rowname,sep="\t")
 }
 
+##apply functions : all factor columns to numeric ##
+
+df.rpkm.sub.long[] <- lapply(df.rpkm.sub.long, function(x) as.numeric(as.character(x)))
+
+##function to assgin status to genes based on median expression##
+status<-function(x){
+  y<-ifelse(x>=median(x),"high","low")
+}
+df.rpkm.sub.long.status<-apply(df.rpkm.sub.long,2,status)
+df.rpkm.sub.long.status<-as.data.frame(df.rpkm.sub.long.status)

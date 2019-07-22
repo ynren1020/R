@@ -1,0 +1,3 @@
+##extract data frame as string##
+deparse(substitute(df))
+

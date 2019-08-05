@@ -1,0 +1,6 @@
+##There are many times I need to save different datasets (e.g.,pairwised comparision) into one data frame for easier reviewing. Here is the chunk code
+##can do this work very handy and pretty.
+
+require(openxlsx)
+list_of_datasets <- list("meta.vs.normal" = degs.3vs1.sub.join, "meta.vs.tumor" = degs.3vs2.sub.join, "tumor.vs.normal"=degs.2vs1.sub.join)
+write.xlsx(list_of_datasets, file = "tcga.vs.su2c.proteincoding.SD.xlsx")

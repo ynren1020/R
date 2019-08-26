@@ -1,3 +1,6 @@
 ##extract data frame as string##
 deparse(substitute(df))
 
+##grep rows not containing some specific strings##
+known_2vs1<-degs.2vs1[-grep("XLOC_",row.names(degs.2vs1),ignore.case=FALSE,fixed=TRUE),]
+

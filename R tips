@@ -66,4 +66,30 @@ library(gridExtra)
 
 grid.arrange(p1, p2, p3, ncol=3)
 
+##define your own themes##
+##I used these themes for boxplot##
+##change y axis##
+mythemey <- theme(
+  #axis.title.y = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank()
+)
+##change x and y ##
+mythemexy <- theme(
+  #axis.title.y = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.text.x = element_blank()
+  #axis.ticks.x = element_blank()
+)
+##change x##
+mythemex <- theme(
+  #axis.title.y = element_blank(),
+  #axis.text.y = element_blank(),
+  #axis.ticks.y = element_blank(),
+  axis.text.x = element_blank()
+  #axis.ticks.x = element_blank()
+)
+
+
 

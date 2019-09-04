@@ -4,3 +4,66 @@ deparse(substitute(df))
 ##grep rows not containing some specific strings##
 known_2vs1<-degs.2vs1[-grep("XLOC_",row.names(degs.2vs1),ignore.case=FALSE,fixed=TRUE),]
 
+##save grid.arrange output##
+pdf("filename.pdf", width = 8, height = 12) # Open a new pdf file
+grid.arrange(plot1, plot2, plot3, nrow=3) # Write the grid.arrange in the file
+dev.off() # Close the file
+
+##modify multiple plot separately and arrange into one figure##
+##https://stackoverflow.com/questions/20524630/modify-x-axis-labels-in-each-facet##
+library(gridExtra)
+
+##First: subsetting the data
+
+open <- subset(data1, Physicians_Out == "Open")
+restr <- subset(data1, Physicians_Out == "Restricted")
+closed <- subset(data1, Physicians_Out == "Closed")
+
+##Second: creating the labels for the different subsets
+
+labs.open <- paste(gsub("/","-\n",names(table(open$Physicians_In)),fixed=T),
+               "\n(N=",table(open$Physicians_In),")",sep="")
+labs.restr <- paste(gsub("/","-\n",names(table(restr$Physicians_In)),fixed=T),
+               "\n(N=",table(restr$Physicians_In),")",sep="")
+labs.closed <- paste(gsub("/","-\n",names(table(closed$Physicians_In)),fixed=T),
+               "\n(N=",table(closed$Physicians_In),")",sep="")
+##Third: creating a theme for removing the y-axis labels & text for the 2nd & 3rd sub-graphs
+
+mytheme <- theme(
+  axis.title.y = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank()
+)
+
+##Finally: creating the graph
+
+p1 <- ggplot(open,aes(x=Physicians_In,y=share,fill=Physicians_In)) +
+  geom_boxplot() + stat_sum_single(mean) + 
+  geom_jitter(position = position_jitter(width = .2),color="blue") +
+  guides(fill=FALSE) +
+  ggtitle(paste("Physician Access (Out): Open\nN = (", nrow(open), ")\n")) +
+  scale_y_continuous("Gammagard Share",labels=percent) +
+  scale_x_discrete("\nPhysician Access (In Hospital)",labels=labs.open) +
+  theme_bw()
+
+p2 <- ggplot(restr,aes(x=Physicians_In,y=share,fill=Physicians_In)) +
+  geom_boxplot() + stat_sum_single(mean) + 
+  geom_jitter(position = position_jitter(width = .2),color="blue") +
+  guides(fill=FALSE) +
+  ggtitle(paste("Physician Access (Out): Restricted\nN = (", nrow(restr), ")\n")) +
+  scale_x_discrete("\nPhysician Access (In Hospital)",labels=labs.restr) +
+  theme_bw() + mytheme
+
+p3 <- ggplot(closed,aes(x=Physicians_In,y=share,fill=Physicians_In)) +
+  geom_boxplot() + stat_sum_single(mean) + 
+  geom_jitter(position = position_jitter(width = .2),color="blue") +
+  guides(fill=FALSE) +
+  ggtitle(paste("Physician Access (Out): Closed\nN = (", nrow(closed), ")\n")) +
+  scale_x_discrete("\nPhysician Access (In Hospital)",labels=labs.closed) +
+  theme_bw() + mytheme
+
+library(gridExtra)
+
+grid.arrange(p1, p2, p3, ncol=3)
+
+

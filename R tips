@@ -91,5 +91,6 @@ mythemex <- theme(
   #axis.ticks.x = element_blank()
 )
 
-
+##remove NA when using summarize function in dplyr##
+##ref to this website https://stackoverflow.com/questions/25759891/dplyr-summarise-each-with-na-rm
 

@@ -94,3 +94,12 @@ mythemex <- theme(
 ##remove NA when using summarize function in dplyr##
 ##ref to this website https://stackoverflow.com/questions/25759891/dplyr-summarise-each-with-na-rm
 
+##create a list of empty list of data frames to store analysis output in r##
+listOfDataFrames <- vector(mode = "list", length = 100)
+
+for (i in 1:100) {
+  listOfDataFrames[[i]] <- data.frame(a=sample(letters, 500, rep=T),
+                                      b=rnorm(500), c=rnorm(500))
+}
+
+df <- do.call("rbind", listOfDataFrames)

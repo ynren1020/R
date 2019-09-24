@@ -103,3 +103,11 @@ for (i in 1:100) {
 }
 
 df <- do.call("rbind", listOfDataFrames)
+
+##select a variable without using $ in data frame, convenient for doing test or analysis on all or some specific columns with them added as an argument##
+# Refer to column names stored as strings with the `.data` pronoun:
+var <- "mass"
+var <- args[1] ##can change args in Rscript ***.R args[1], these columns can all be analyzed.
+summarise(starwars, avg = mean(.data[[var]], na.rm = TRUE))
+
+

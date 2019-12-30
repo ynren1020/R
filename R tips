@@ -110,4 +110,5 @@ var <- "mass"
 var <- args[1] ##can change args in Rscript ***.R args[1], these columns can all be analyzed.
 summarise(starwars, avg = mean(.data[[var]], na.rm = TRUE))
 
-
+# use below code to check which heatmap color you want to apply#
+barplot(1:5, col=rev(heat.colors(2))) 

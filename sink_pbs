@@ -1,0 +1,30 @@
+--------------------------------------------------------------------------------
+#!/bin/bash -l
+#PBS -l walltime=12:00:00,nodes=1:ppn=8,mem=20gb
+#PBS -m abe
+#PBS -M renxx275@umn.edu
+cd $PBS_O_WORKDIR
+newgrp aventeic
+# load the hisat2 module
+#module load sratoolkit
+#module load hisat2
+#module load samtools
+#module load Subread
+module load freebayes/20180409
+bash xaa
+--------------------------------------------------------------------------------
+jobs<-c(paste0("xa",letters[1:26]),paste0("xb",letters[1:26]),paste0("xc",letters[1:26]),
+        paste0("xd",letters[1:26]),paste0("xe",letters[1:4]))
+
+for (i in 1:length(jobs)){
+  sink(paste0(jobs[i],".pbs"))
+  cat("#!/bin/bash -l\n")
+  cat("#PBS -l walltime=24:00:00,nodes=1:ppn=8,mem=40gb\n")
+  cat("#PBS -m abe\n")
+  cat("#PBS -M renxx275@umn.edu\n")
+  cat("cd $PBS_O_WORKDIR\n")
+  cat("newgrp aventeic\n")
+  cat("module load freebayes/20180409\n")
+  cat("bash ",jobs[i],"\n")
+  sink()
+}

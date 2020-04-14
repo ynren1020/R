@@ -1,0 +1,30 @@
+# add if statement for both pdf() and dev.off() ------
+
+
+analyze <- function(filename, output = NULL) {
+  # Plots the average, min, and max inflammation over time.
+  # Input:
+  #    filename: character string of a csv file
+  #    output: character string of pdf file for saving
+  if (!is.null(output)) {
+    pdf(output)
+  }
+  dat <- read.csv(file = filename, header = FALSE)
+  avg_day_inflammation <- apply(dat, 2, mean)
+  plot(avg_day_inflammation)
+  max_day_inflammation <- apply(dat, 2, max)
+  plot(max_day_inflammation)
+  min_day_inflammation <- apply(dat, 2, min)
+  plot(min_day_inflammation)
+  if (!is.null(output)) {
+    dev.off()
+  }
+}
+
+# my example -----
+if(!is.null(args5)){
+    pdf(file = paste0(args5, "_", tid, ".pdf"))
+    fgsea::plotEnrichment(pathways.hallmark[[args5]], ranks) + labs(title = args5)}
+if(!is.null(args5)){
+    dev.off()
+}

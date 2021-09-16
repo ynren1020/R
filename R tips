@@ -112,3 +112,9 @@ summarise(starwars, avg = mean(.data[[var]], na.rm = TRUE))
 
 # use below code to check which heatmap color you want to apply#
 barplot(1:5, col=rev(heat.colors(2))) 
+
+
+##write out multiple dfs into sheets of excel##
+require(openxlsx)
+list_of_datasets <- list("tumor.vs.normal"=degs.2vs1.sub,"meta.vs.normal" = degs.3vs1.sub, "meta.vs.tumor" = degs.3vs2.sub)
+write.xlsx(list_of_datasets, file = "tcga.vs.su2c.proteincoding.SD_new_all.xlsx")

@@ -118,3 +118,10 @@ barplot(1:5, col=rev(heat.colors(2)))
 require(openxlsx)
 list_of_datasets <- list("tumor.vs.normal"=degs.2vs1.sub,"meta.vs.normal" = degs.3vs1.sub, "meta.vs.tumor" = degs.3vs2.sub)
 write.xlsx(list_of_datasets, file = "tcga.vs.su2c.proteincoding.SD_new_all.xlsx")
+
+# save large data file in rds format or save current work space for later use 
+# reference link http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata
+Save and restore one single R object: saveRDS(object, file), my_data <- readRDS(file)
+Save and restore multiple R objects: save(data1, data2, file = “my_data.RData”), load(“my_data.RData”)
+Save and restore your entire workspace: save.image(file = “my_work_space.RData”), load(“my_work_space.RData”)
+

@@ -20,3 +20,14 @@ status<-function(x){
 }
 df.rpkm.sub.long.status<-apply(df.rpkm.sub.long,2,status)
 df.rpkm.sub.long.status<-as.data.frame(df.rpkm.sub.long.status)
+
+# little function to find integer 
+find_interger <- function(i){
+  y <- NULL
+  for (j in 1:i){
+    y[j] <- (2040 - 160*j)%%180
+    if (y[j] == 0)
+      return(j)
+  }
+
+}

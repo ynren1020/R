@@ -125,3 +125,8 @@ Save and restore one single R object: saveRDS(object, file), my_data <- readRDS(
 Save and restore multiple R objects: save(data1, data2, file = “my_data.RData”), load(“my_data.RData”)
 Save and restore your entire workspace: save.image(file = “my_work_space.RData”), load(“my_work_space.RData”)
 
+# how to use which function 
+which function return the index row number when the which() statement is true
+For example 
+matched1<-which(t_location$initial==1&t_location$LOC_CD==M[1,1]) # this will return the row number of t_location when the condition is true, in this example, the returned value for matched1 is 5 as row 5 of t_location met the criteria
+

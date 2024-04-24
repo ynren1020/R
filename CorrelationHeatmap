@@ -16,6 +16,8 @@ allows us to focus on groups of variables that share common characteristics.
 In summary, correlation heatmaps and clustering of the correlation matrix provide valuable insights into the relationships between variables in a dataset, facilitating pattern recognition, dimension reduction, and 
 identification of underlying structures. They are powerful tools for exploratory data analysis and can inform subsequent statistical modeling or hypothesis testing.
 
+resources: http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software
+
 Example ----
 # ++++++++++++++++++++++++++++
 # flattenCorrMatrix

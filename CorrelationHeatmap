@@ -18,6 +18,12 @@ identification of underlying structures. They are powerful tools for exploratory
 
 resources: http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software
 
+reference: 
+https://www.nature.com/articles/nmeth.3587
+https://www.kem.edu/wp-content/uploads/2012/06/9-Principles_of_correlation-1.pdf
+
+
+
 Example ----
 # ++++++++++++++++++++++++++++
 # flattenCorrMatrix

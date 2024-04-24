@@ -1,0 +1,70 @@
+A correlation heatmap visually represents the correlation structure between variables in a dataset. Each cell in the heatmap displays the correlation coefficient between 
+two variables, typically ranging from -1 to 1. Here's what the correlation heatmap and clustering of the correlation matrix can tell us:
+1. correlation heatmap
+-strength and direction of relationships: The heatmap allows us to quickly identify the strength and direction of relationships between pairs of variables. Positive correlations (values close to 1)
+indicate that the variables tend to move in the same direction, while negative correlations (values close to -1) indicate that the variables tend to move in opposite directions.
+-Pattern and structure: By examing the heatmap, we can identify patterns and structures in the data. For example, clusters of highly correlated variables may suggest underlying relationships or common
+factors influencing those variables.
+-Identify relationships: It helps in identifying potential relationships that might require further investigation or analysis. Variables with strong correlations might be candidates for multicollinearity
+assessment or feature selection in preditive modeling.
+2. clustering of correlation matrix
+-grouping similar variables: clustering algorithm applied to the correlation matrix can group similar variables together based on their correlation patterns. Variables within the same cluster tend to have
+high correlations with each other and low correlations with variables in other clusters.
+-Identify subgroups: Clustering can help identify subgroups of variables that exhibit similar behavior or relationships within the dataset. These subgroups may represent distinct aspects or dimentions of the data.
+-Dimension reduction: Clustering can aid in dimension reduction by summarizing the correlation structure of the dataset. Instead of examining correlations between each pair of variables individually, clustering 
+allows us to focus on groups of variables that share common characteristics.
+In summary, correlation heatmaps and clustering of the correlation matrix provide valuable insights into the relationships between variables in a dataset, facilitating pattern recognition, dimension reduction, and 
+identification of underlying structures. They are powerful tools for exploratory data analysis and can inform subsequent statistical modeling or hypothesis testing.
+
+Example ----
+# ++++++++++++++++++++++++++++
+# flattenCorrMatrix
+# ++++++++++++++++++++++++++++
+# cormat : matrix of the correlation coefficients
+# pmat : matrix of the correlation p-values
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+  )
+}
+##################################
+library(tidyverse)
+library(RColorBrewer)
+library(Hmisc)
+
+# numeric matrix for correlation and correlation significance level ----
+res2 <- rcorr(as.matrix(a.df[,1:21]),type=c("spearman"))
+res2
+
+# flattern correlation matrix ----
+res2.out <- flattenCorrMatrix(res2$r, res2$P)
+View(res2.out)
+# adjust p-values to correct multiple comparisons ----
+res2.out <- res2.out |>
+  mutate(p.adj = p.adjust(p, method = "BH", n=length(p)))
+
+# only keep significant records at level of 0.2 ----
+res2.out.sig <- res2.out |>
+  filter(p.adj < 0.2)
+
+# correlation heatmap----
+res <- cor(aDBS_cor[,1:21], use = "pairwise.complete.obs")
+col<- colorRampPalette(c("blue", "white", "red"))(20)
+#heatmap(x = res, col = col, symm = TRUE)
+
+corht <- Heatmap(res,
+              cluster_rows = TRUE,
+              cluster_columns = TRUE,
+              column_dend_height = unit(15, "mm"),
+              row_dend_width = unit(25, "mm"), 
+              border = TRUE,
+              name = "Correlation Coefficient",
+              col = col)
+
+png("../Output/Graphs/aDBS_cormatrixheatmap.png", width=1000,height=800)
+draw(corht)
+dev.off()

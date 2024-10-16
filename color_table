@@ -1,0 +1,38 @@
+
+
+
+
+adbs_gt |>
+  gt(rowname_col = c("pt"))|>
+  fmt_number(
+    columns = 8,
+    decimals = 3
+  ) |>
+  tab_spanner(
+    label = "Patient Reported Outcomes",
+    columns = 6:9
+  ) |>
+  tab_spanner(
+    label = "Programming",
+    columns = 2:5
+  ) |>
+  data_color(columns = chg_vas, domain = c(-27, 0, 37), colors = scales::col_bin(bins = c(-Inf, 0, Inf), palette = c("green","white","red"))) |>
+  data_color(columns = chg_eq5d, domain = c(-0.550, 0.035, 0.350), colors = scales::col_bin(bins = c(-Inf, 0, Inf), palette = c("green","white","red"))) |>
+  gt_color_rows("delta_current_left", palette = "ggsci::blue_material") |>
+  gt_color_rows("delta_current_right", palette = "ggsci::blue_material") |>
+  gt_color_rows("delta_threshold_left", palette = "ggsci::purple_material") |>
+  gt_color_rows("delta_threshold_right", palette = "ggsci::purple_material") |>
+  cols_label(
+    delta_current_left = "Delta Current (L)",
+    delta_current_right = "Delta Current (R)",
+    delta_threshold_left = "Delta Threshold (L)",
+    delta_threshold_right = "Delta Threshold (R)",
+    chg_eq5d = "EQ5D index",
+    chg_vas = "VAS score",
+    chg_si = "PDQ39 SI",
+    chg_u3 = "MDS-UPDRSIII"
+  ) |>
+  cols_width(everything() ~ px(80)) |>
+  tab_options(
+    table.margin.left = px(10)) |>
+  gtsave("../Output/pt_adbsoutcome_gt.png")

@@ -1,0 +1,5 @@
+Weekend project: I used Posit PBC's Shiny Assistant to rewrite my Recyclebot app front end (which I originally write in Chainlit) in Shiny for Python.
+I ended up first re-doing it in Streamlit, which is a more common codebase for an LLM to understand. It took a couple of hours to work through all the kinks, but it's live now at https://lnkd.in/eh_9wB8J
+
+Shiny Assistant is a great resource if you're building Shiny apps in either R or Python!
+https://lnkd.in/ejWdV4xq
